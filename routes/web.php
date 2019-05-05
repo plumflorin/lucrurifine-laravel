@@ -22,5 +22,6 @@ Route::resource('produse', 'ProduseController');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/shop', 'ShopController@index')->name('shop');
+Route::get('/shop/{sort}', 'ShopController@sort');
 
-Route::get('/categorie/{id}', 'CategorieController@cat');
+Route::get('/shop/categorie/{id}', 'CategorieController@cat');

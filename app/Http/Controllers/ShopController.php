@@ -23,9 +23,53 @@ class ShopController extends Controller
     {
         $produse = Produse::with('categorii', 'imagini')->paginate(9);
         $categorii = Categorii::All();
-        
-        return view('shop.shop', compact('produse', 'categorii'));
+        $options = array('noi' => 'Cele Mai Noi', 'crescator' => 'Pret Crescator', 'descrescator' => 'Pret Descrescator');
+        $select = 'noi';
+
+        return view('shop.shop', compact('produse', 'categorii', 'options', 'select'));
         //return dd($produse);
+        
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function sort($sort)
+    {   if ($sort == 'noi') {
+        $produse = Produse::with('categorii', 'imagini')->orderBy('updated_at')->paginate(9);
+        $categorii = Categorii::All();
+        $select = $sort;
+        $options = array('noi' => 'Cele Mai Noi', 'crescator' => 'Pret Crescator', 'descrescator' => 'Pret Descrescator');
+    
+        return view('shop.shop', compact('produse', 'categorii', 'select', 'options'));
+    
+        } elseif ($sort == 'crescator') {
+            $produse = Produse::with('categorii', 'imagini')->orderBy('pret_produs')->paginate(9);
+            $categorii = Categorii::All();
+            $select = $sort;
+            $options = array('noi' => 'Cele Mai Noi', 'crescator' => 'Pret Crescator', 'descrescator' => 'Pret Descrescator');
+        
+            return view('shop.shop', compact('produse', 'categorii', 'select', 'options'));
+        
+        } elseif ($sort == 'descrescator') {
+            $produse = Produse::with('categorii', 'imagini')->orderBy('pret_produs', 'desc')->paginate(9);
+            $categorii = Categorii::All();
+            $select = $sort;
+            $options = array('noi' => 'Cele Mai Noi', 'crescator' => 'Pret Crescator', 'descrescator' => 'Pret Descrescator');
+        
+            return view('shop.shop', compact('produse', 'categorii', 'select', 'options'));
+        } else {
+            $produse = Produse::with('categorii', 'imagini')->orderBy('updated_at')->paginate(9);
+            $categorii = Categorii::All();
+            $select = 'noi';
+            $options = array('noi' => 'Cele Mai Noi', 'crescator' => 'Pret Crescator', 'descrescator' => 'Pret Descrescator');
+    
+            return view('shop.shop', compact('produse', 'categorii', 'select', 'options'));
+        }
+        
+        
         
     }
 

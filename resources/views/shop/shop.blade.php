@@ -19,11 +19,11 @@
                                 <ul id="menu-content2" class="menu-content">
                                     <!-- Single Item -->
                                     <ul class="" id="clothing">
-                                            <li><a href="{{url ('/shop')}}">All</a></li>
+                                            <li><a href="{{url ('shop')}}">All</a></li>
 
                                             @foreach ($categorii as $categorie)
                                                 
-                                                    <li><a href="{{url ('categorie/' . $categorie['id'])}}">{{$categorie['nume_categorie']}}</a></li>
+                                                    <li><a href="{{url ('shop' . '/categorie/' . $categorie['id'])}}">{{$categorie['nume_categorie']}}</a></li>
                                                 
                                             @endforeach
                                                                                         
@@ -46,16 +46,16 @@
                                     </div>
                                     <!-- Sorting -->
                                     <div class="product-sorting d-flex">
-                                        <p>Sort by:</p>
-                                        <form action="#" method="get">
+                                        <p>Sortare dupa:</p>
+                                        
                                             <select name="select" id="sortByselect">
-                                                <option value="value">Highest Rated</option>
-                                                <option value="value">Newest</option>
-                                                <option value="value">Price: $$ - $</option>
-                                                <option value="value">Price: $ - $$</option>
-                                            </select>
-                                            <input type="submit" class="d-none" value="">
-                                        </form>
+                                                @foreach ($options as $key => $option)                                                
+                                                    <option value="{{$key}}" {{  $key == $select ? "selected" : "" }}>{{$option}}</option>
+                                                    <!-- <option value="crescator">Pret crescator</option> -->
+                                                    <!-- <option value="descrescator">Pret descrescator</option> -->
+                                                @endforeach
+                                            </select>                                            
+                                        
                                     </div>
                                 </div>
                             </div>

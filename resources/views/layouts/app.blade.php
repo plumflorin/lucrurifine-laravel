@@ -17,7 +17,7 @@
 
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="{{url('/css/core-style.css')}}">
-    <link rel="stylesheet" href="{{url('/style.css')}}">
+    <link rel="stylesheet" href="{{url('/css/style.css')}}">
 
 </head>
 
@@ -247,6 +247,8 @@
     <script src="{{url ('js/classy-nav.min.js')}}"></script>
     <!-- Active js -->
     <script src="{{url ('js/active.js')}}"></script>
+
+    <script src="{{url ('js/custom.js')}}"></script>
 
 </body>
 
