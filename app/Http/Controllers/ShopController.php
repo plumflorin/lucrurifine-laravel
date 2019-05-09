@@ -25,6 +25,7 @@ class ShopController extends Controller
         $categorii = Categorii::All();
         $options = array('noi' => 'Cele Mai Noi', 'crescator' => 'Pret Crescator', 'descrescator' => 'Pret Descrescator');
         $select = 'noi';
+        
 
         return view('shop.shop', compact('produse', 'categorii', 'options', 'select'));
         //return dd($produse);
@@ -100,9 +101,12 @@ class ShopController extends Controller
      * @param  \App\Shop  $shop
      * @return \Illuminate\Http\Response
      */
-    public function show(Shop $shop)
+    public function show($id)
     {
-        //
+        $produs = Produse::where('id', $id)->with('categorii', 'imagini')->first();       
+
+        return view('shop.produs', compact('produs'));
+        //return dd($produs);
     }
 
     /**

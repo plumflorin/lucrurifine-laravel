@@ -49,7 +49,7 @@
                                     <div class="product-sorting d-flex">
                                         <p>Sortare dupa:</p>
                                         
-                                            <select name="select" id="sortByselect">
+                                            <select name="select" id="sortByCatselect">
                                                 @foreach ($options as $key => $option)                                                
                                                     <option value="{{$key}}" {{  $key == $select ? "selected" : "" }}>{{$option}}</option>
                                                     <!-- <option value="crescator">Pret crescator</option> -->
@@ -82,7 +82,7 @@
                                                 <span>-{{round($percent = ($produs['pret_vechi_produs'] - $produs['pret_produs']) / $produs['pret_vechi_produs'] * 100)}}% </span>
                                             </div>                                            
                                             
-                                        @endif
+                                        @endif                          
                                     </div></a>
 
                                     <!-- Product Description -->
@@ -99,7 +99,13 @@
                                         
                                         </span> {{$produs->pret_produs}} LEI</p>
 
-                                        
+                                        <!-- Hover Content -->
+                                        <div class="hover-content">
+                                            <!-- Add to Cart -->
+                                            <div class="add-to-cart-btn">
+                                                <a href="#" class="btn essence-btn">Add to Cart</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

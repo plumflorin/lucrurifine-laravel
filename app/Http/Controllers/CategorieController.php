@@ -16,13 +16,50 @@ class CategorieController extends Controller
         
         $produse = Produse::where('id_categorie_produs', $id)->with('categorii', 'imagini')->paginate(9);
         $categorii = Categorii::All();
+        $options = array('noi' => 'Cele Mai Noi', 'crescator' => 'Pret Crescator', 'descrescator' => 'Pret Descrescator');
+        $select = 'noi';
 
-        return view('shop.shop', compact('produse', 'categorii'));
+        return view('shop.shopbycat', compact('produse', 'categorii', 'options', 'select'));
         //return dd($produse);
     }
 
 
-
+    public function sort($id, $sort)
+    {   if ($sort == 'noi') {
+        $produse = Produse::where('id_categorie_produs', $id)->with('categorii', 'imagini')->orderBy('updated_at')->paginate(9);
+        $categorii = Categorii::All();
+        $select = $sort;
+        $options = array('noi' => 'Cele Mai Noi', 'crescator' => 'Pret Crescator', 'descrescator' => 'Pret Descrescator');
+    
+        return view('shop.shopbycat', compact('produse', 'categorii', 'select', 'options'));
+    
+        } elseif ($sort == 'crescator') {
+            $produse = Produse::where('id_categorie_produs', $id)->with('categorii', 'imagini')->orderBy('pret_produs')->paginate(9);
+            $categorii = Categorii::All();
+            $select = $sort;
+            $options = array('noi' => 'Cele Mai Noi', 'crescator' => 'Pret Crescator', 'descrescator' => 'Pret Descrescator');
+        
+            return view('shop.shopbycat', compact('produse', 'categorii', 'select', 'options'));
+        
+        } elseif ($sort == 'descrescator') {
+            $produse = Produse::where('id_categorie_produs', $id)->with('categorii', 'imagini')->orderBy('pret_produs', 'desc')->paginate(9);
+            $categorii = Categorii::All();
+            $select = $sort;
+            $options = array('noi' => 'Cele Mai Noi', 'crescator' => 'Pret Crescator', 'descrescator' => 'Pret Descrescator');
+        
+            return view('shop.shopbycat', compact('produse', 'categorii', 'select', 'options'));
+        } else {
+            $produse = Produse::where('id_categorie_produs', $id)->with('categorii', 'imagini')->orderBy('updated_at')->paginate(9);
+            $categorii = Categorii::All();
+            $select = 'noi';
+            $options = array('noi' => 'Cele Mai Noi', 'crescator' => 'Pret Crescator', 'descrescator' => 'Pret Descrescator');
+    
+            return view('shop.shopbycat', compact('produse', 'categorii', 'select', 'options'));
+        }
+        
+        
+        
+    }
 
     /**
      * Display a listing of the resource.
