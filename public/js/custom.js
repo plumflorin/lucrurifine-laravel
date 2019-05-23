@@ -18,3 +18,33 @@
         //return false;
     });
 
+
+    $(".delfromcart").click(function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        var idcart = $(this).data("id");
+        var token = $(this).data("token");
+        
+        $.ajax(
+        {
+            url: "/cart/"+idcart,
+            type: 'POST',            
+            data: {                
+                "_method": 'DELETE',
+                "_token": token
+            },
+            success: function ()
+            {
+                window.location.reload();
+            },
+
+            error: function (data) {
+                console.log('Error:', data);
+                }
+
+            
+        });
+
+        
+    });
+

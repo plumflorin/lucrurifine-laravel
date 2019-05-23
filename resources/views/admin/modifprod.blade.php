@@ -11,6 +11,11 @@
         </ul>
   </div><br />
   @endif
+
+  @if(Session::has('error'))
+     <span class="error">{{ Session::pull('error') }}</span>
+  @endif
+
   <form action="/produse/{{$produs[0]->id}}" method="post" enctype="multipart/form-data">
   @csrf
   @method('PATCH')

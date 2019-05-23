@@ -19,6 +19,7 @@ class CreateProduseTable extends Migration
             $table->text('descriere_produs');
             $table->decimal('pret_produs', 7,2);
             $table->decimal('pret_vechi_produs', 7,2)->nullable();
+            $table->string('stare_produs')->default('inactiv');
             $table->integer('id_categorie_produs');
             $table->timestamps();
         });

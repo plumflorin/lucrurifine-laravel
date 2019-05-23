@@ -60,12 +60,17 @@
                     </form>
                 </div> -->                
                 <!-- User Login Info -->
-                <div class="user-login-info">
+                <!-- <div class="user-login-info">
                     <a href="#"><img src="{{url ('img/core-img/user.svg')}}" alt=""></a>
-                </div>
+                </div> -->
                 <!-- Cart Area -->
                 <div class="cart-area">
-                    <a href="#" id="essenceCartBtn"><img src="{{url ('img/core-img/bag.svg')}}" alt=""> <span>3</span></a>
+                    <a href="#" id="essenceCartBtn"><img src="{{url ('img/core-img/bag.svg')}}" alt=""> <span>
+                    @if(Session('cart'))
+                        {{ count(Session('cart')) }}
+                    @endif
+                    
+                    </span></a>
                 </div>
             </div>
 
@@ -80,60 +85,38 @@
 
         <!-- Cart Button -->
         <div class="cart-button">
-            <a href="#" id="rightSideCart"><img src="{{url ('img/core-img/bag.svg')}}" alt=""> <span>3</span></a>
+            <a href="#" id="rightSideCart"><img src="{{url ('img/core-img/bag.svg')}}" alt=""> <span>
+            @if(Session('cart'))
+                {{ count(Session('cart')) }}
+            @endif
+            </span></a>
         </div>
 
         <div class="cart-content d-flex">
 
             <!-- Cart List Area -->
             <div class="cart-list">
+            @if(session()->has('cart'))
+                @foreach(Session('cart') as $key => $detalii)   
+
                 <!-- Single Cart Item -->
-                <div class="single-cart-item">
-                    <a href="#" class="product-image">
-                        <img src="{{url ('img/product-img/product-1.jpg')}}" class="cart-thumb" alt="">
+                <div id="{{$detalii['id']}}" class="single-cart-item">
+                    <a href="/shop/produs/{{$produs['id']}}" class="product-image">
+                        <img src="{{url ($detalii['imagine'])}}" class="cart-thumb" alt="">
                         <!-- Cart Item Desc -->
                         <div class="cart-item-desc">
-                          <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-                            <span class="badge">Mango</span>
-                            <h6>Button Through Strap Mini Dress</h6>
-                            <p class="size">Size: S</p>
-                            <p class="color">Color: Red</p>
-                            <p class="price">$45.00</p>
+                          <span class="product-remove"><i data-id="{{ $key }}" data-token="{{ csrf_token() }}" class="fa fa-close delfromcart" aria-hidden="true"></i></span>
+                            <h6>{{ $detalii['denumire'] }}</h6>
+                            <p class="size">Marime: {{$detalii['marime']}}</p>
+                            <p class="color">Cantitate: {{$detalii['cantitate']}}</p>
+                            <p class="price">{{ $detalii['pret']}} LEI</p>
+                            <p class="price">{{ $key }} id</p>
                         </div>
                     </a>
                 </div>
 
-                <!-- Single Cart Item -->
-                <div class="single-cart-item">
-                    <a href="#" class="product-image">
-                        <img src="{{url ('img/product-img/product-2.jpg')}}" class="cart-thumb" alt="">
-                        <!-- Cart Item Desc -->
-                        <div class="cart-item-desc">
-                          <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-                            <span class="badge">Mango</span>
-                            <h6>Button Through Strap Mini Dress</h6>
-                            <p class="size">Size: S</p>
-                            <p class="color">Color: Red</p>
-                            <p class="price">$45.00</p>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Single Cart Item -->
-                <div class="single-cart-item">
-                    <a href="#" class="product-image">
-                        <img src="img/product-img/product-3.jpg" class="cart-thumb" alt="">
-                        <!-- Cart Item Desc -->
-                        <div class="cart-item-desc">
-                          <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-                            <span class="badge">Mango</span>
-                            <h6>Button Through Strap Mini Dress</h6>
-                            <p class="size">Size: S</p>
-                            <p class="color">Color: Red</p>
-                            <p class="price">$45.00</p>
-                        </div>
-                    </a>
-                </div>
+                @endforeach
+            @endif
             </div>
 
             <!-- Cart Summary -->

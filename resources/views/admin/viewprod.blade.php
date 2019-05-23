@@ -3,16 +3,23 @@
 
 @section('content')
 
+@if(Session::has('success'))
+    <div class="row">
+        <div class="col-12">
+            <span class="alert alert-success">{{ Session::pull('success') }}</span>
+        </div>
+    </div>
+@endif
+
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-12">
+        @if(Session::has('error'))
+            <span class="alert alert-danger">{{ Session::pull('error') }}</span>
+        @endif
+    </div>
+</div>
 
-    @if(Session::has('error'))
-     <span class="error">{{ Session::pull('error') }}</span>
-    @endif
-
-    @if(Session::has('success'))
-     <span class="success">{{ Session::pull('success') }}</span>
-    @endif
+    
         <!-- DATA TABLE -->        
         <div class="table-data__tool">
             <div class="table-data__tool-left">

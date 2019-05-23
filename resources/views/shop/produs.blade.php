@@ -3,6 +3,13 @@
 
 @section('content')
 
+@if(Session::has('success'))
+    <div class="row">
+        <div class="col-12">
+            <span class="alert alert-success">{{ Session::pull('success') }}</span>
+        </div>
+    </div>
+@endif
 <!-- ##### Single Product Details Area Start ##### -->
 <section class="single_product_details_area d-flex align-items-center">
 
@@ -17,42 +24,50 @@
 
 <!-- Single Product Description -->
 <div class="single_product_desc clearfix">
-    <span>mango</span>
-    <a href="cart.html">
-        <h2>One Shoulder Glitter Midi Dress</h2>
-    </a>
-    <p class="product-price"><span class="old-price">$65.00</span> $49.00</p>
-    <p class="product-desc">Mauris viverra cursus ante laoreet eleifend. Donec vel fringilla ante. Aenean finibus velit id urna vehicula, nec maximus est sollicitudin.</p>
+    <h2>{{$produs->nume_produs}}</h2>
+    <p class="product-price"><span class="old-price">
+
+    @isset($produs->pret_vechi_produs)
+        {{$produs->pret_vechi_produs}}
+    @endisset
+    
+    </span> {{$produs->pret_produs}} LEI</p>
+    <p class="product-desc">{{$produs->descriere_produs}}</p>
 
     <!-- Form -->
-    <form class="cart-form clearfix" method="post">
+    <form action="{{url ('/shop/produs/' . $produs->id . '/addtocart')}}" class="cart-form clearfix" method="get">
+    @csrf
         <!-- Select Box -->
-        <div class="select-box d-flex mt-50 mb-30">
-            <select name="select" id="productSize" class="mr-5">
-                <option value="value">Size: XL</option>
-                <option value="value">Size: X</option>
-                <option value="value">Size: M</option>
-                <option value="value">Size: S</option>
-            </select>
-            <select name="select" id="productColor">
-                <option value="value">Color: Black</option>
-                <option value="value">Color: White</option>
-                <option value="value">Color: Red</option>
-                <option value="value">Color: Purple</option>
-            </select>
-        </div>
+        <!-- <div class="row"> -->
+            <div class="form-group">
+                <label class="mt-15 ml-15" for="size">Marime</label>
+                <select name="marime" class="form-control col-sm-4">
+                    <option value="XL">XL</option>
+                    <option value="L">L</option>
+                    <option value="M" selected>M</option>
+                    <option value="S">S</option>
+                    <option value="XS">XS</option>
+                </select>                
+            </div>
+            <div class="form-group">
+                <label class="mt-15 ml-15" for="cantitate">Cantitate</label>
+                <input name="cantitate" type="number" class="form-control col-sm-4" value="1">
+            </div>
+        <!-- </div> -->
+        <input type="hidden" name="p_id" value="{{$produs->id}}">
+        
         <!-- Cart & Favourite Box -->
         <div class="cart-fav-box d-flex align-items-center">
             <!-- Cart -->
-            <button type="submit" name="addtocart" value="5" class="btn essence-btn">Add to cart</button>
-            <!-- Favourite -->
-            <div class="product-favourite ml-4">
-                <a href="#" class="favme fa fa-heart"></a>
-            </div>
+            <button type="submit" name="addtocart"  class="col-sm-4 btn btn-light">Adauga Produsul</button>
         </div>
     </form>
+
+  
 </div>
 </section>
+
+
 <!-- ##### Single Product Details Area End ##### -->
 
 @endsection

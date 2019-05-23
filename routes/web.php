@@ -28,4 +28,10 @@ Route::get('/shop/categorie/{id}', 'CategorieController@cat');
 Route::get('/shop/categorie/{id}/{sort}', 'CategorieController@sort');
 
 Route::get('/shop/produs/{id}', 'ShopController@show');
+Route::get('/shop/produs/{id}/addtocart', 'CartController@addToCart');
+Route::delete('/cart/{id}', 'CartController@delFromCart');
+
+
+
+Route::get('/test', 'CartController@test');
 

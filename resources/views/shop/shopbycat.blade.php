@@ -47,16 +47,14 @@
                                     </div>
                                     <!-- Sorting -->
                                     <div class="product-sorting d-flex">
-                                        <p>Sortare dupa:</p>
+                                        <p>Ordonare dupa:</p><span>
                                         
-                                            <select name="select" id="sortByCatselect">
+                                            <select name="select" class="form-control" id="sortByCatselect">
                                                 @foreach ($options as $key => $option)                                                
-                                                    <option value="{{$key}}" {{  $key == $select ? "selected" : "" }}>{{$option}}</option>
-                                                    <!-- <option value="crescator">Pret crescator</option> -->
-                                                    <!-- <option value="descrescator">Pret descrescator</option> -->
+                                                    <option value="{{$key}}" {{  $key == $select ? "selected" : "" }}>{{$option}}</option>                                                    
                                                 @endforeach
                                             </select>                                            
-                                        
+                                        </span>
                                     </div>
                                 </div>
                             </div>

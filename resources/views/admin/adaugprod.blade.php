@@ -3,6 +3,7 @@
 @section('content')
 <div class="container" style="margin-top: 20px">
 
+
 @if($errors->any())
   <div class="alert alert-danger">
         <ul>
@@ -11,6 +12,13 @@
             @endforeach
         </ul>
   </div><br />
+@endif
+
+@if(Session::has('err'))
+    <div class="row">
+      <span class="offset-4 alert alert-danger">{{ Session::pull('err') }}</span>
+    </div>
+
 @endif
 
 

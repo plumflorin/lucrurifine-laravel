@@ -74,7 +74,10 @@ class ProduseController extends Controller
          
         
         
-         if ($produs->save()) {
+         if ($images = $request->file('images')) {
+            
+            $produs->save();
+            
             $id = $produs->id;
             $folder = $id . '_' . date('d.m.Y_H-i-s');
                
@@ -102,6 +105,10 @@ class ProduseController extends Controller
         Session::flash('success', 'Produsul a fost adaugat!');
         return redirect('/produse');
     }
+ else {
+    Session::flash('err', 'Produsul nu a fost adaugat! Lipsesc fotografiile...');
+    return redirect('/produse/create');
+ }
 }
 
     /**
@@ -144,7 +151,8 @@ class ProduseController extends Controller
          $request->validate([
             'nume'=>'required',
             'descriere'=>'required',
-            'pret'=> 'required|integer',
+            'pret'=> 'required|numeric',
+            'pret2'=> 'nullable|numeric',
             'categorie' => 'required',
           ]);
           

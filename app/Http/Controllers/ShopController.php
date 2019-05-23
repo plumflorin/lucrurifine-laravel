@@ -21,9 +21,9 @@ class ShopController extends Controller
      */
     public function index()
     {
-        $produse = Produse::with('categorii', 'imagini')->paginate(9);
+        $produse = Produse::where('stare_produs', 'activ')->with('categorii', 'imagini')->paginate(9);
         $categorii = Categorii::All();
-        $options = array('noi' => 'Cele Mai Noi', 'crescator' => 'Pret Crescator', 'descrescator' => 'Pret Descrescator');
+        $options = array('noi' => 'Noi', 'ieftine' => 'Ieftine', 'scumpe' => 'Scumpe');
         $select = 'noi';
         
 
@@ -38,34 +38,34 @@ class ShopController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function sort($sort)
-    {   if ($sort == 'noi') {
-        $produse = Produse::with('categorii', 'imagini')->orderBy('updated_at')->paginate(9);
-        $categorii = Categorii::All();
-        $select = $sort;
-        $options = array('noi' => 'Cele Mai Noi', 'crescator' => 'Pret Crescator', 'descrescator' => 'Pret Descrescator');
-    
-        return view('shop.shop', compact('produse', 'categorii', 'select', 'options'));
-    
-        } elseif ($sort == 'crescator') {
-            $produse = Produse::with('categorii', 'imagini')->orderBy('pret_produs')->paginate(9);
+        {   if ($sort == 'noi') {
+            $produse = Produse::where('stare_produs', 'activ')->with('categorii', 'imagini')->orderBy('updated_at')->paginate(9);
             $categorii = Categorii::All();
             $select = $sort;
-            $options = array('noi' => 'Cele Mai Noi', 'crescator' => 'Pret Crescator', 'descrescator' => 'Pret Descrescator');
+            $options = array('noi' => 'Noi', 'ieftine' => 'Ieftine', 'scumpe' => 'Scumpe');
+        
+            return view('shop.shop', compact('produse', 'categorii', 'select', 'options'));
+    
+        } elseif ($sort == 'ieftine') {
+            $produse = Produse::where('stare_produs', 'activ')->with('categorii', 'imagini')->orderBy('pret_produs')->paginate(9);
+            $categorii = Categorii::All();
+            $select = $sort;
+            $options = array('noi' => 'Noi', 'ieftine' => 'Ieftine', 'scumpe' => 'Scumpe');
         
             return view('shop.shop', compact('produse', 'categorii', 'select', 'options'));
         
-        } elseif ($sort == 'descrescator') {
-            $produse = Produse::with('categorii', 'imagini')->orderBy('pret_produs', 'desc')->paginate(9);
+        } elseif ($sort == 'scumpe') {
+            $produse = Produse::where('stare_produs', 'activ')->with('categorii', 'imagini')->orderBy('pret_produs', 'desc')->paginate(9);
             $categorii = Categorii::All();
             $select = $sort;
-            $options = array('noi' => 'Cele Mai Noi', 'crescator' => 'Pret Crescator', 'descrescator' => 'Pret Descrescator');
+            $options = array('noi' => 'Noi', 'ieftine' => 'Ieftine', 'scumpe' => 'Scumpe');
         
             return view('shop.shop', compact('produse', 'categorii', 'select', 'options'));
         } else {
-            $produse = Produse::with('categorii', 'imagini')->orderBy('updated_at')->paginate(9);
+            $produse = Produse::where('stare_produs', 'activ')->with('categorii', 'imagini')->orderBy('updated_at')->paginate(9);
             $categorii = Categorii::All();
             $select = 'noi';
-            $options = array('noi' => 'Cele Mai Noi', 'crescator' => 'Pret Crescator', 'descrescator' => 'Pret Descrescator');
+            $options = array('noi' => 'Noi', 'ieftine' => 'Ieftine', 'scumpe' => 'Scumpe');
     
             return view('shop.shop', compact('produse', 'categorii', 'select', 'options'));
         }
