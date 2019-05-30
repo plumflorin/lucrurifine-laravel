@@ -30,8 +30,10 @@ Route::get('/shop/categorie/{id}/{sort}', 'CategorieController@sort');
 Route::get('/shop/produs/{id}', 'ShopController@show');
 Route::get('/shop/produs/{id}/addtocart', 'CartController@addToCart');
 Route::delete('/cart/{id}', 'CartController@delFromCart');
+Route::get('/checkout', 'CartController@checkout');
+Route::post('/final-comanda', 'CartController@finalizare');
 
 
 
-Route::get('/test', 'CartController@test');
+// Route::get('/test', 'CartController@finalizare');
 

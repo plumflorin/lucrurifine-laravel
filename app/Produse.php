@@ -24,4 +24,9 @@ class Produse extends Model
     {
         return $this->belongsTo('App\Categorii', 'id_categorie_produs');
     }
+
+    public function comenzi_produse()
+    {
+        return $this->hasMany('App\Comenzi_produse', 'id_produs');
+    }
 }

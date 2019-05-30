@@ -41,10 +41,41 @@
             error: function (data) {
                 console.log('Error:', data);
                 }
-
             
         });
+    });
 
         
-    });
+
+        
+
+    //     $("body").on("click", "#plaseazacomanda", function() {
+    //         var datacomanda = {
+    //             _token: $('#_token').val(),
+    //             nume: $('#nume').val(),
+    //             prenume: $('#prenume').val(),
+    //             adresa: $('#adresa').val(),
+    //             localitate: $('#localitate').val(),
+    //             judet: $('#judet').val(),
+    //             telefon: $('#telefon').val(),
+    //             email: $('#email').val(),
+    //         };
+    //         $.ajax(
+    //         {
+    //             url: "/final-comanda",
+    //             type: 'post',            
+    //             data: datacomanda,
+    //             // success: function ()
+    //             // {
+    //             //     window.location.reload();
+    //             // },
+    
+    //             error: function (data) {
+    //                 console.log('Error:', data);
+    //                 }
+                
+    //         });
+
+        
+    // });
 

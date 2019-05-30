@@ -122,7 +122,6 @@ class ProduseController extends Controller
         $produs = Produse::with('imagini')->find($produse);
 
         $delfolder = storage_path('app/public/images/' . $produs[0]->imagini[0]->folder_imagine);
-        return dd($delfolder);
     }
 
     /**

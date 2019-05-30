@@ -101,7 +101,7 @@
 
                 <!-- Single Cart Item -->
                 <div id="{{$detalii['id']}}" class="single-cart-item">
-                    <a href="/shop/produs/{{$produs['id']}}" class="product-image">
+                    <a href="/shop/produs/{{$detalii['id']}}" class="product-image">
                         <img src="{{url ($detalii['imagine'])}}" class="cart-thumb" alt="">
                         <!-- Cart Item Desc -->
                         <div class="cart-item-desc">
@@ -110,7 +110,6 @@
                             <p class="size">Marime: {{$detalii['marime']}}</p>
                             <p class="color">Cantitate: {{$detalii['cantitate']}}</p>
                             <p class="price">{{ $detalii['pret']}} LEI</p>
-                            <p class="price">{{ $key }} id</p>
                         </div>
                     </a>
                 </div>
@@ -119,19 +118,61 @@
             @endif
             </div>
 
+                <?php 
+                    $subtotal = 0;
+                    $livrare = 0;
+                
+
+            if(session()->has('cart')):
+                foreach(Session('cart') as $detaliiCart):
+
+                $subtotal = $subtotal + ($detaliiCart['pret'] * $detaliiCart['cantitate']);
+
+                endforeach;
+                
+            endif;
+            ?>
             <!-- Cart Summary -->
             <div class="cart-amount-summary">
 
-                <h2>Summary</h2>
+                <h2>Sumar Comanda</h2>
                 <ul class="summary-table">
-                    <li><span>subtotal:</span> <span>$274.00</span></li>
-                    <li><span>delivery:</span> <span>Free</span></li>
-                    <li><span>discount:</span> <span>-15%</span></li>
-                    <li><span>total:</span> <span>$232.00</span></li>
+                    <li><span>subtotal:</span> <span>{{$subtotal}} LEI</span></li>
+                    <li><span>livrare:</span> <span>
+                    <?php
+                        if(Session('cart')) {
+                            if($subtotal > 200) {
+                                $livrare = 0;
+                                echo $livrare . ' LEI';
+                            } else {   
+                                $livrare = 17  ;                  
+                                echo $livrare . ' LEI';
+                            }
+                        
+                        }  else {
+                            $livrare = 0;
+                            echo $livrare . ' LEI';
+                        }
+                    ?>
+                    </span></li>
+                    <li><span>total:</span> <span>
+                    
+                    <?php
+                    if ($subtotal > 0) {                      
+                        echo $subtotal + $livrare . " LEI";
+                      
+                    } else {
+                      echo 0 . " Lei";
+                    }
+                    ?>
+                    
+                    </span></li>
                 </ul>
+                @if(Session('cart'))
                 <div class="checkout-btn mt-100">
-                    <a href="checkout.html" class="btn essence-btn">check out</a>
+                    <a href="/checkout" class="btn essence-btn">Pasul Urmator</a>
                 </div>
+                @endif
             </div>
         </div>
     </div>
