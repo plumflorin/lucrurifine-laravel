@@ -175,17 +175,34 @@ class ProduseController extends Controller
      */
     public function destroy($id)
     {
-        $prod = Produse::with('imagini')->find($id);
-        $imagini = Imagini::where('id_produs_imagine', $id)->delete();
+        // $prod = Produse::with('imagini')->find($id);
+        // $imagini = Imagini::where('id_produs_imagine', $id)->delete();
         
-        $delfolder = $prod->imagini[0]->folder_imagine;
+        // $delfolder = $prod->imagini[0]->folder_imagine;
 
-        $prod->delete();
+        // $prod->delete();
 
         
-        File::deleteDirectory(public_path('storage/images/' . $delfolder));
+        // File::deleteDirectory(public_path('storage/images/' . $delfolder));
         
-        Session::flash('success', $delfolder);
+        // Session::flash('success', $delfolder);
+
+        
+    }
+
+    public function status($id)
+    {
+        
+        $prod = Produse::find($id);
+
+        if ($prod->stare_produs == 'inactiv') {
+            $prod->stare_produs = 'activ';
+            $prod->save();
+        } elseif ($prod->stare_produs == 'activ') {
+            $prod->stare_produs = 'inactiv';
+            $prod->save();
+            
+        }
         
     }
 }

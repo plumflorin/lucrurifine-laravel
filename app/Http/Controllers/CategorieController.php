@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Categorii;
 use App\Produse;
 use App\Imagini;
+use Session;
 
 
 class CategorieController extends Controller
@@ -14,7 +15,10 @@ class CategorieController extends Controller
     public function cat($id)
     {
         
-        $produse = Produse::where(['id_categorie_produs', $id], ['stare_produs', 'activ'])->with('categorii', 'imagini')->paginate(9);
+        $produse = Produse::where('id_categorie_produs', $id)
+                            ->where('stare_produs', 'activ')
+                            ->with('categorii', 'imagini')
+                            ->paginate(9);
         $categorii = Categorii::All();
         $options = array('noi' => 'Noi', 'ieftine' => 'Ieftine', 'scumpe' => 'Scumpe');
         $select = 'noi';
@@ -68,7 +72,8 @@ class CategorieController extends Controller
      */
     public function index()
     {
-        //
+        $categorii = Categorii::All();
+        return view('admin.categorii', compact('categorii'));
     }
 
     /**
@@ -89,7 +94,13 @@ class CategorieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $categorie = new Categorii;
+        $categorie->nume_categorie = $request['categorie'];
+        $categorie->save();
+
+        Session::flash('success', 'Categoria a fost adaugata!');
+        return redirect('/categorii');
     }
 
     /**
@@ -132,8 +143,14 @@ class CategorieController extends Controller
      * @param  \App\Categorie  $categorie
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categorie $categorie)
+    public function destroy($id)
     {
-        //
+        $categorie = Categorii::find($id);
+        //sterge categorie doar daca nu exista produse in aceasta categorie
+        //pentru a nu apare erori
+        if (count($categorie->produse) == 0 ) {  
+            $categorie->delete();
+        }
+        
     }
 }
