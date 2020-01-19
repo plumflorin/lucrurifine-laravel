@@ -3,15 +3,10 @@
 
 @section('content')
 
-@if(Session::has('success'))
-    <div class="row">
-        <div class="col-12">
-            <span class="alert alert-success">{{ Session::pull('success') }}</span>
-        </div>
-    </div>
-@endif
+
 <!-- ##### Single Product Details Area Start ##### -->
 <section class="single_product_details_area d-flex align-items-center">
+
 
 <!-- Single Product Thumb -->
 <div class="single_product_thumb clearfix">
@@ -21,6 +16,7 @@
     @endforeach
     </div>
 </div>
+
 
 <!-- Single Product Description -->
 <div class="single_product_desc clearfix">
@@ -35,7 +31,7 @@
     <p class="product-desc">{{$produs->descriere_produs}}</p>
 
     <!-- Form -->
-    <form action="{{url ('/shop/produs/' . $produs->id . '/addtocart')}}" class="cart-form clearfix" method="get">
+    <form action="{{'/shop/produs/' . $produs->id . '/addtocart'}}" class="cart-form clearfix" method="get">
     @csrf
         <!-- Select Box -->
         <!-- <div class="row"> -->

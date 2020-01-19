@@ -32,6 +32,20 @@ class ShopController extends Controller
         
     }
 
+
+    public function welcome()
+    {
+        $produse = Produse::where('stare_produs', 'activ')->with('categorii', 'imagini')->latest()->limit(6)->get();
+        $categorii = Categorii::All();
+        $options = array('noi' => 'Noi', 'ieftine' => 'Ieftine', 'scumpe' => 'Scumpe');
+        $select = 'noi';
+        
+
+        return view('welcome', compact('produse', 'categorii', 'options', 'select'));
+        //return dd($produse);
+        
+    }
+
     /**
      * Display a listing of the resource.
      *

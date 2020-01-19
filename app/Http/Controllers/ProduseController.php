@@ -29,7 +29,7 @@ class ProduseController extends Controller
     public function index()
     {
         //$categorii = Categorii::All();
-        $produse = Produse::with('categorii', 'imagini')->get();
+        $produse = Produse::with('categorii', 'imagini')->paginate(9);
         //$imagini = Imagini::All();
         return view('admin.viewprod', compact('produse'));
     }

@@ -11,11 +11,13 @@
 
     $('#sortByCatselect').on('change', function () {
         var value = $(this).val(); // get selected value
-        var cat = $('input#categ').val();
-        //if (value) { // require a URL
-            window.location = "/shop/categorie/" + cat + "/" + value; // redirect
-        //}
-        //return false;
+        // var cat = $('input.categ').val();
+
+        var url = window.location.pathname.split("/");
+        var cat = url[3];
+
+        console.log(cat);
+        window.location = "/shop/categorie/" + cat + "/sortare/" + value; // redirect
     });
 
 

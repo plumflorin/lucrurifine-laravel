@@ -2,6 +2,7 @@
 
 
 @section('content')
+
     <!-- ##### Shop Grid Area Start ##### -->
     <section class="shop_grid_area section-padding-80">
         <div class="container">
@@ -19,11 +20,11 @@
                                 <ul id="menu-content2" class="menu-content">
                                     <!-- Single Item -->
                                     <ul class="" id="clothing">
-                                            <li><a href="{{url ('shop')}}">All</a></li>
+                                            <li><a href="/shop">All</a></li>
 
                                             @foreach ($categorii as $categorie)
                                                 
-                                                    <li><a href="{{url ('shop' . '/categorie/' . $categorie['id'])}}">{{$categorie['nume_categorie']}}</a></li>
+                                                    <li><a href="{{'/shop' . '/categorie/' . $categorie['id']}}">{{$categorie['nume_categorie']}}</a></li>
                                                     <input type="hidden" id="categ"  value="{{$categorie['id']}}" />
 
                                             @endforeach
@@ -77,7 +78,7 @@
                                         @if (!empty($produs['pret_vechi_produs']))                                                                                    
                                             
                                             <div class="product-badge offer-badge">
-                                                <span>-{{round($percent = ($produs['pret_vechi_produs'] - $produs['pret_produs']) / $produs['pret_vechi_produs'] * 100)}}% </span>
+                                                <span>{{round($percent = ($produs['pret_vechi_produs'] - $produs['pret_produs']) / $produs['pret_produs'] * 100)}}% </span>
                                             </div>                                            
                                             
                                         @endif
@@ -86,9 +87,7 @@
                                     <!-- Product Description -->
                                     <div class="product-description">
                                         <span>{{ $produs->categorii['nume_categorie']}}</span>
-                                        <a href="single-product-details.html">
                                             <h6>{{ $produs->nume_produs}}</h6>
-                                        </a>
                                         <p class="product-price"><span class="old-price">
 
                                         @isset($produs->pret_vechi_produs)

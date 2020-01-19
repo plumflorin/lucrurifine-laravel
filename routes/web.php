@@ -11,11 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome', ['title' => 'homepage']);
-});
+Route::get('/', 'ShopController@welcome');
 
-Auth::routes();
+Auth::routes([
+    'register' => false, // Registration Routes...
+    'verify' => false, // Email Verification Routes...
+  ]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -32,18 +33,32 @@ Route::delete('/categorii/{id}', 'CategorieController@destroy')->middleware('aut
 Route::get('/shop', 'ShopController@index')->name('shop');
 Route::get('/shop/{sort}', 'ShopController@sort');
 Route::get('/shop/categorie/{id}', 'CategorieController@cat');
-Route::get('/shop/categorie/{id}/{sort}', 'CategorieController@sort');
+Route::get('/shop/categorie/{id}/sortare/{sort}', 'CategorieController@sort');
 Route::get('/shop/produs/{id}', 'ShopController@show');
 Route::get('/shop/produs/{id}/addtocart', 'CartController@addToCart');
 
 //Cart Routes
 Route::delete('/cart/{id}', 'CartController@delFromCart');
-Route::get('/checkout', 'CartController@checkout')->middleware('checkcartnotempty');
+Route::get('/checkout', 'CartController@checkout')->middleware('checkcartnotempty', 'pretegalprodusecart');
 Route::post('/final-comanda', 'CartController@finalizare')->middleware('checkcartnotempty');
 
 
+//Comenzi Routes
+Route::get('/comenzi', 'ComenziController@index')->middleware('auth');
+Route::get('/comenzi/{id}', 'ComenziController@show')->middleware('auth');
+Route::patch('/comenzi/stare/{id}', 'ComenziController@status')->middleware('auth');
+
+//Dashboard Routes
+Route::get('/dashboard', 'ComenziController@dashboard')->middleware('auth');
+
+//Logout Route
+Route::get('/logout', 'ComenziController@logout')->middleware('auth');
+
+//Confidentialitate Route
+Route::view('/politica-de-confidentialitate', 'shop.confidentialitate');
 
 
 
-// Route::get('/test', 'CartController@finalizare');
+// Route::get('/test', 'CartController@test');
+
 

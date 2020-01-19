@@ -6,6 +6,7 @@ use App\Imagini;
 use App\Categorii;
 use App\Comenzi;
 use App\Comenzi_produse;
+use Illuminate\Support\Facades\Mail;
 
 use Session;
 use Illuminate\Http\Request;
@@ -20,15 +21,7 @@ class CartController extends Controller
         if(!$produs) {
  
             abort(404);
- 
         }
- 
-        // $cart = session()->get('cart');
-        // $idRand = rand (0, 1000);
-        
- 
-        // if cart is empty then this the first product
-        // if(!$cart) {
  
             $prodpush = [
                 "id" => $id,
@@ -42,7 +35,8 @@ class CartController extends Controller
  
             session()->push('cart', $prodpush);
             //return dd(session('cart'));
-            return redirect()->back()->with('success', 'Produs adaugat cu succes!');
+            return redirect('/shop')->with('success', 'Produs adaugat cu succes!');
+           
 
         // }       
  
@@ -86,7 +80,7 @@ class CartController extends Controller
             'localitate'=> 'required',
             'judet'=> 'required',
             'telefon'=> 'required',
-            'email'=> 'required|email'            
+            'email'=> 'required|email',
           ]);
         
         $comanda = new Comenzi;
@@ -104,7 +98,8 @@ class CartController extends Controller
             $products = session('cart');
             
             foreach ($products as $product) {
-                        
+                $produs = Produse::where('id', $product['id']);
+
                 $comenzi_produse = new Comenzi_produse;
                 $comenzi_produse->id_comanda = $last_id;
                 $comenzi_produse->id_produs = $product['id'];
@@ -113,10 +108,30 @@ class CartController extends Controller
                 $comenzi_produse->pret = $product['pret'];
 
                 $comenzi_produse->save();
-                session::forget('cart');
             }
-        }
+
+            $to_name = $request->nume;
+            $to_email = $request->email;
+            $data = array('name' => $to_name, 'body' => "A test mail", 'comanda' => $comanda, 'produse' => $products, 'last_id' => $last_id);
+            Mail::send('mails.finalcomandaclient', $data, function($message) use ($to_name, $to_email, $last_id, $comanda, $products) {
+            $message->to($to_email, $to_name)
+                    ->subject('Confirmare plasare comanda nr. #' . $last_id);
+            $message->from('plumflorin@gmail.com','Lucruri Fine');
+            });
+
+            session::forget('cart');
+        
        
         return view('shop.final-comanda', compact('last_id'));
+    }
+
+    }
+
+
+    public function test()
+    {
+        $cart = Session::get('cart');
+
+        dd($cart);
     }
 }

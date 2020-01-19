@@ -1,0 +1,48 @@
+.js-cookie-consent{
+    position: fixed;
+    bottom: 0px;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    z-index: 9999;
+    background-color: gray;
+    border-color: #fffacc;
+    border: solid 1px;
+    color: white;
+  }
+
+  .js-cookie-consent button{
+    background-color: lightgray;
+    border: none;
+    border-radius: 25px;
+    padding: 5px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+
+  .js-cookie-consent a{
+    color: lightgray;
+    font-size: 1.2em;
+  }  
+  
+  .confidentialitate h3, h5{
+    text-align: center;
+  }
+
+  .confidentialitate p{
+    margin-bottom: 15px;
+  }
+
+  @media only screen and (max-width: 768px) {
+
+    .nav-brand img{
+      height: 100px;
+    }
+    
+  }
+  

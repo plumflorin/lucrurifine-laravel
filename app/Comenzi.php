@@ -18,9 +18,15 @@ class comenzi extends Model
                             'email_comanda'
                         ];
 
-    public function comenzi_produse()
+    public function produse()
     {
-        return $this->hasMany('App\Comenzi_produse', 'id_comanda');
+        return $this->belongsToMany('App\Produse', 'comenzi_produse', 'id_comanda', 'id_produs')
+                    ->withPivot('marime', 'cantitate', 'pret');
+    }
+
+    public function imagini()
+    {
+        return $this->hasManyThrough('App\Imagini', 'App\Produse', 'id', 'id_produs_imagine', 'id', 'id');
     }
 
     

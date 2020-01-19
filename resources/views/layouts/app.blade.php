@@ -13,22 +13,23 @@
     <title>Lucruri Fine</title>
 
     <!-- Favicon  -->
-    <link rel="icon" href="img/core-img/favicon.ico">
+    <link rel="icon" href="/favicon.ico">
 
     <!-- Core Style CSS -->
-    <link rel="stylesheet" href="{{url('/css/core-style.css')}}">
-    <link rel="stylesheet" href="{{url('/css/style.css')}}">
+    <link rel="stylesheet" href="/css/core-style.css">
+    <link rel="stylesheet" href="/css/style.css">
 
 </head>
 
 <body>
+@include('cookieConsent::index')
     <!-- ##### Header Area Start ##### -->
     <header class="header_area">
         <div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
             <!-- Classy Menu -->
             <nav class="classy-navbar" id="essenceNav">
                 <!-- Logo -->
-                <a class="nav-brand" href="index.html"><img src="{{url('img/core-img/logo.png')}}" alt=""></a>
+                <a class="nav-brand" href="/"><img src="/img/core-img/logo.png" alt=""></a>
                 <!-- Navbar Toggler -->
                 <div class="classy-navbar-toggler">
                     <span class="navbarToggler"><span></span><span></span><span></span></span>
@@ -42,8 +43,8 @@
                     <!-- Nav Start -->
                     <div class="classynav">
                         <ul>                            
-                            <li><a href="{{url ('/shop')}}">Shop</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="/shop">Shop</a></li>
+                            <li><a href="/contact">Contact</a></li>
                         </ul>
                     </div>
                     <!-- Nav End -->
@@ -52,28 +53,16 @@
 
             <!-- Header Meta Data -->
             <div class="header-meta d-flex clearfix justify-content-end">
-                <!-- Search Area -->
-                <!-- <div class="search-area">
-                    <form action="#" method="post">
-                        <input type="search" name="search" id="headerSearch" placeholder="Type for search">
-                        <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                    </form>
-                </div> -->                
-                <!-- User Login Info -->
-                <!-- <div class="user-login-info">
-                    <a href="#"><img src="{{url ('img/core-img/user.svg')}}" alt=""></a>
-                </div> -->
+                
                 <!-- Cart Area -->
                 <div class="cart-area">
-                    <a href="#" id="essenceCartBtn"><img src="{{url ('img/core-img/bag.svg')}}" alt=""> <span>
+                    <a href="#" id="essenceCartBtn"><img src="/img/core-img/bag.svg" alt=""> <span>
                     @if(Session('cart'))
                         {{ count(Session('cart')) }}
-                    @endif
-                    
+                    @endif                    
                     </span></a>
                 </div>
             </div>
-
         </div>
     </header>
     <!-- ##### Header Area End ##### -->
@@ -85,7 +74,7 @@
 
         <!-- Cart Button -->
         <div class="cart-button">
-            <a href="#" id="rightSideCart"><img src="{{url ('img/core-img/bag.svg')}}" alt=""> <span>
+            <a href="#" id="rightSideCart"><img src="/img/core-img/bag.svg" alt=""> <span>
             @if(Session('cart'))
                 {{ count(Session('cart')) }}
             @endif
@@ -102,7 +91,7 @@
                 <!-- Single Cart Item -->
                 <div id="{{$detalii['id']}}" class="single-cart-item">
                     <a href="/shop/produs/{{$detalii['id']}}" class="product-image">
-                        <img src="{{url ($detalii['imagine'])}}" class="cart-thumb" alt="">
+                        <img src="{{$detalii['imagine']}}" class="cart-thumb" alt="">
                         <!-- Cart Item Desc -->
                         <div class="cart-item-desc">
                           <span class="product-remove"><i data-id="{{ $key }}" data-token="{{ csrf_token() }}" class="fa fa-close delfromcart" aria-hidden="true"></i></span>
@@ -180,74 +169,50 @@
 
     @yield('content')
 
+    
+
     <!-- ##### Footer Area Start ##### -->
-    <footer class="footer_area clearfix">
+    <footer class="footer_area clearfix py-2">
         <div class="container">
             <div class="row">
                 <!-- Single Widget Area -->
-                <div class="col-12 col-md-6">
-                    <div class="single_widget_area d-flex mb-30">
-                        <!-- Logo -->
-                        <div class="footer-logo mr-50">
-                            <a href="#"><img src="{{url ('img/core-img/logo2.png')}}" alt=""></a>
-                        </div>
-                        <!-- Footer Menu -->
-                        <div class="footer_menu">
-                            <ul>
-                                <li><a href="shop.html">Shop</a></li>
-                                <li><a href="blog.html">Blog</a></li>
-                                <li><a href="contact.html">Contact</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Widget Area -->
-                <div class="col-12 col-md-6">
-                    <div class="single_widget_area mb-30">
-                        <ul class="footer_widget_menu">
-                            <li><a href="#">Order Status</a></li>
-                            <li><a href="#">Payment Options</a></li>
-                            <li><a href="#">Shipping and Delivery</a></li>
-                            <li><a href="#">Guides</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Terms of Use</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row align-items-end">
-                <!-- Single Widget Area -->
-                <div class="col-12 col-md-6">
-                    <div class="single_widget_area">
-                        <div class="footer_heading mb-30">
-                            <h6>Subscribe</h6>
-                        </div>
-                        <div class="subscribtion_form">
-                            <form action="#" method="post">
-                                <input type="email" name="mail" class="mail" placeholder="Your email here">
-                                <button type="submit" class="submit"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Widget Area -->
-                <div class="col-12 col-md-6">
+                <div class="col-12 text-center">
                     <div class="single_widget_area">
                         <div class="footer_social_area">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Pinterest"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Youtube"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                            <a href="/shop">Shop</a>
+                            <a href="/contact">Contact</a>
+                            <a href="/livrare">Livrare produse</a>
+                            <a href="/politica-de-confidentialitate">Confidentialitate</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-<div class="row mt-5">
-                <div class="col-md-12 text-center">
-                    <p>
+            <div class="row">
+                
+                <!-- Single Widget Area -->
+                <div class="col-12 text-center">
+                    <div class="single_widget_area">
+                        <div class="footer_social_area">
+                            <a href="http://www.facebook.com/lucruri.fine" target="_blank" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <a href="http://www.instagram.com/Lucrurifine" target="_blank" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 text-center">
+                <p>Made by © <a href="http://www.plumdesign.ro" target="_blank">plumdesign</a></p>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row" style="display: none">
+                <div class="col-12 text-center">
+                    <p >
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
     Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -260,20 +225,76 @@
     <!-- ##### Footer Area End ##### -->
 
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
-    <script src="{{url ('js/jquery/jquery-2.2.4.min.js')}}"></script>
+    <script src="/js/jquery/jquery-2.2.4.min.js"></script>
     <!-- Popper js -->
-    <script src="{{url ('js/popper.min.js')}}"></script>
+    <script src="/js/popper.min.js"></script>
     <!-- Bootstrap js -->
-    <script src="{{url ('js/bootstrap.min.js')}}"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <!-- Plugins js -->
-    <script src="{{url ('js/plugins.js')}}"></script>
+    <script src="/js/plugins.js"></script>
     <!-- Classy Nav js -->
-    <script src="{{url ('js/classy-nav.min.js')}}"></script>
+    <script src="/js/classy-nav.min.js"></script>
     <!-- Active js -->
-    <script src="{{url ('js/active.js')}}"></script>
+    <script src="/js/active.js"></script>
 
-    <script src="{{url ('js/custom.js')}}"></script>
+    <script src="/js/custom.js"></script>
 
+    @if(Session::has('success'))
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#successmodal').modal();
+        });
+    </script>
+
+    <div id="successmodal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content text-center">
+                <div class="modal-header"  style="background-color: #5cb85c">
+                    <h5 class="modal-title">Succes</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>{{ session()->get('success') }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>        
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+
+    @if(Session::has('pretegalprod'))
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#pretegalprod').modal();
+        });
+    </script>
+
+    <div id="pretegalprod" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content text-center">
+                <div class="modal-header" style="background-color: #d9534f">
+                    <h5 class="modal-title">Eroare</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>{{ Session::pull('pretegalprod') }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Inchide</button>                
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
+
+@include('cookieConsent::index')
 </body>
 
 </html>

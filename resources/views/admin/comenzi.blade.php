@@ -40,52 +40,68 @@
                 <button class="au-btn-filter">
                     <i class="zmdi zmdi-filter-list"></i>filters</button>
             </div>
-            <div class="table-data__tool-right">
+            <!-- <div class="table-data__tool-right">
                 <button onclick="location.href = '/produse/create'" class="au-btn au-btn-icon au-btn--green au-btn--small">
                     <i class="zmdi zmdi-plus"></i>Adauga Produs</button>
-            </div>
+            </div> -->
         </div>
         <div class="table-responsive table-responsive-data2">
-            <table class="table table-data2">
+            <table class="table table-data2 text-center">
                 <thead>
                     <tr>
-                        <th>Id Produs</th>
-                        <th>Denumire</th>
-                        <th>Categorie</th>
-                        <th>Poza</th>
-                        <th>Pret</th>
-                        <th>Pret vechi</th>
+                        <th>Id Comanda</th>
+                        <th>Nume Client</th>
+                        <th>Adresa</th>
+                        <th>localitate</th>
+                        <th>Judet</th>
                         <th>Data</th>
+                        <th>Pret Total</th>
                         <th>Stare</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="tr-shadow">
 
-                    @foreach ($produse as $produs)
+                    @foreach ($comenzi as $comanda)
                         
-                        <td>{{ $produs->id }}</td> 
-                        <td class="desc">{{ $produs->nume_produs }}</td>
-                        <td>{{ $produs->categorii->nume_categorie }}</td>
-                        <td><img style="max-height: 60px" src="storage/images/{{ $produs->imagini->first()->folder_imagine }}/{{$produs->imagini->first()->nume_imagine}}" alt=""></td>
-                        <td>{{ $produs->pret_produs }}</td>
-                        <td>{{ $produs->pret_vechi_produs }}</td>
-                        <td>{{ $produs->created_at }}</td>
-                        <td>{{ $produs->stare_produs }}</td>
+                        <td>{{ $comanda->id }}</td> 
+                        <td>{{ $comanda->nume_comanda }} {{ $comanda->prenume_comanda }}</td>
+                        <td>{{ $comanda->adresa_comanda }}</td>
+                        <td>{{ $comanda->localitate_comanda }}</td>
+                        <td>{{ $comanda->judet_comanda }}</td>
+                        <td>{{ $comanda->created_at }}</td>
                         <td>
-                            <div class="table-data-feature">
-                                <button data-id="{{ $produs->id }}" class="item status" data-token="{{ csrf_token() }}" data-toggle="tooltip" data-placement="top" title="Schimba Status">
+                            <?php 
+                            $pret_total = 0;
+                            foreach($comanda->produse as $produs) :
+                                
+                                $pret_total = $pret_total + ($produs->pivot->pret * $produs->pivot->cantitate);
+                                
+                            endforeach;
+
+                            echo $pret_total;
+                            ?>
+                        </td>
+                        
+                        
+                        <td style=
+                            @if ($comanda->stare_comanda == 'in asteptare')
+                            "color:Orange"
+                            @elseif ($comanda->stare_comanda == 'finalizata')
+                            "color:#00cc00"
+                            @elseif ($comanda->stare_comanda == 'anulata')
+                            "color:red"
+                            @endif>
+                        {{ $comanda->stare_comanda }}
+                        </td>
+                        <td>
+                            <div class="table-data-feature">                                
+                                <button class="item" onclick="location.href = '/comenzi/{{$comanda->id}}'"data-toggle="tooltip" data-placement="top" title="More">
+                                    <i class="zmdi zmdi-more"></i>
+                                </button>
+                                <button data-id="{{ $comanda->id }}" class="item statuscomanda" data-token="{{ csrf_token() }}" data-toggle="tooltip" data-placement="top" title="Schimba Stare">
                                     <i class="zmdi zmdi-badge-check"></i>
                                 </button>
-                                <button onclick="location.href = '/produse/{{$produs->id}}/edit'" class="item" data-toggle="tooltip" data-placement="top" title="Editeaza produs">
-                                    <i class="zmdi zmdi-edit"></i>
-                                </button>
-                                <!-- <button  class="iteml"  data-toggle="tooltip" data-placement="top" title="Delete">
-                                    <i class="zmdi zmdi-delete"></i>
-                                </button> -->
-                                <!-- <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-                                    <i class="zmdi zmdi-more"></i>
-                                </button> -->
                             </div>
                         </td>
                     </tr>

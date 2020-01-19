@@ -3,11 +3,10 @@
 
 @section('content')
 
-
-
 <!-- ##### Checkout Area Start ##### -->
 <div class="checkout_area section-padding-80">
         <div class="container">        
+            
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-5 ml-lg-auto">
                     <div class="order-details-confirmation">
@@ -113,6 +112,10 @@
                                 <div class="col-12 mb-3">
                                     <label for="email_address">Adresa Email  <span>*</span></label>
                                     <input type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                </div>
+                                <div class="col-12 mb-3 form-check ml-3">
+                                    <input type="checkbox" name="gdpr" class="custom-control-input" id="customCheck1" required>
+                                    <label class="custom-control-label" for="customCheck1">Sunt de acord cu politica de confidentialitate si prelucrarea datelor cu caracter personal.</label>
                                 </div>
                                 @if(Session('cart'))
                                 <div class="col-12 mb-3">

@@ -22,6 +22,7 @@ class CreateComenziTable extends Migration
             $table->string('judet_comanda');
             $table->string('telefon_comanda');
             $table->string('email_comanda');
+            $table->string('stare_comanda')->default('nepreluata');
             $table->timestamps();
         });
     }
